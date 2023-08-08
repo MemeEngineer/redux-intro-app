@@ -5,7 +5,7 @@
 //button to delete a todo
 
 //import the action creators functions
-import { addTodo, deleteTodo } from "../Features/todos/todoSlice.js";
+import { addTodo, deleteTodo, updateTodo} from "../Features/todos/todoSlice.js";
 
 import { useState } from "react";
 
@@ -19,6 +19,7 @@ export default function TodoList() {
   const dispatch = useDispatch();
 
   const [text, setText] = useState('');
+  const [update, setUpdate] = useState(false);
 
   return (
     <div>
@@ -28,13 +29,13 @@ export default function TodoList() {
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) =>
-          e.key === "Enter" && dispatch(addTodo(text, e))
+          e.key === "Enter" && dispatch(addTodo(text, e), setText(' '))
         }
       />
       {todoList.map((list) => {
         return (
           <div key={list.id}>
-            <li>{list.text}</li>
+            <li onClick={()=> dispatch(updateTodo(list.text, list.id))}>{list.text}</li>
             <button onClick={()=> dispatch(deleteTodo(list.id))}> Delete</button>
           </div>
         );

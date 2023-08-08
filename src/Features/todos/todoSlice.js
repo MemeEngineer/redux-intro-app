@@ -26,12 +26,24 @@ export const todoSlice = createSlice({
             let{payload} = action;
             let indexOfDelete = state.findIndex((item) => item.id === payload)
             state.splice(indexOfDelete,1)
+        },
+
+        //update todo
+        updateTodo: (state, action) => {
+            let {payload} = action;
+            console.log(payload)
+            const todoCopy = [...state]
+            console.log(todoCopy)
+            const indexOfUpdate = state.findIndex((item) => item.id === payload)
+            console.log(indexOfUpdate)
+            console.log(state)
         }
+    
 
     }
 
 })
 //Todo: we need to export our actions creators
-export const {addTodo, deleteTodo} = todoSlice.actions;
+export const {addTodo, deleteTodo, updateTodo} = todoSlice.actions;
 
 export default todoSlice.reducer;
